@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import {withRouter} from 'react-router-dom'
-import { Layout, Menu, Icon, Button } from 'antd'
+import { Layout, Menu, Icon, Button, Avatar } from 'antd'
 import styled from 'styled-components'
 import menuConfig from './menu'
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
+import {logout} from 'Store/actions/user'
 const { Sider } = Layout
 const { SubMenu } = Menu
-
+const mapDispatchToProps = dispatch => ({
+  logout: bindActionCreators(logout, dispatch)
+})
+@connect(null, mapDispatchToProps)
 class LayoutComponent extends Component {
   state = {
     collapsed: false,
@@ -24,6 +30,12 @@ class LayoutComponent extends Component {
 
   jumpRouter = ({ key }) => {
     this.props.history.push({pathname: key, query: {name: key}})
+  }
+
+  logout = () => {
+    let res = this.props.logout()
+    console.log('aaaa', res)
+    this.props.history.push({pathname: '/'})
   }
 
   genrateSubMenu (config) {
@@ -88,7 +100,8 @@ class LayoutComponent extends Component {
               onClick={this.toggle}
             />
             <LoginInfo>
-              <Button>退出</Button>
+              <Avatar size={44} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+              <Button onClick={this.logout}>退出</Button>
             </LoginInfo>
           </WrapHeader>
           <MainContent>
