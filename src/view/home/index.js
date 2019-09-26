@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import RouterView from '../../router/index'
+import RouterView from '@/router'
+import {logout} from 'Store/actions/user'
+import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import {logout} from '../../store/actions/user'
-import { bindActionCreators } from 'redux'
+import LayoutComponent from '@/components/layout'
 const mapStateToProps = (state) => {
   return {
     user: state.user
@@ -14,22 +14,13 @@ const mapDispatchToProps = dispatch => ({
 })
 @connect(mapStateToProps, mapDispatchToProps)
 class Home extends Component {
-// constructor (props) {
-  //   super(props)
-  // }
-  loginout = () => {
-    this.props.logout()
-    this.props.history.push('/')
-  }
+
   render() {
-    console.log('在这里吗-----home', this.props)
     return (
-      <div>
-       首页
-      <Link to="/home/article">文章</Link>
-      <button onClick={this.loginout}>退出</button>
-      <RouterView routes={this.props.routes} />
-      </div>
+      <LayoutComponent>
+        <div>aa</div>
+        <RouterView routes={this.props.routes} />
+      </LayoutComponent>
     )
   }
 }

@@ -11,8 +11,7 @@ export default class RouterView extends Component {
     return (
       <Wrapper>
         {routes.map((route, i) => {
-          let tpl
-          tpl = <Route
+          return <Route
             key={i}
             path={route.path}
             exact={route.exact}
@@ -25,7 +24,6 @@ export default class RouterView extends Component {
               />)
             }}
           />
-          return tpl
         })}
       </Wrapper>
     )
