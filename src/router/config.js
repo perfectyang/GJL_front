@@ -1,12 +1,11 @@
-import {
-  Home,
-  Login,
-  Users,
-  Article,
-  NotFound,
-  Setting,
-  Modify
-} from '../view'
+import { lazy } from 'react'
+const Home = lazy(() => import('../view/home'))
+const Article = lazy(() => import('../view/home/article'))
+const Users = lazy(() => import('../view/users'))
+const Setting = lazy(() => import('../view/users/setting'))
+const Modify = lazy(() => import('../view/users/modify'))
+const NotFound = lazy(() => import('../view/404'))
+const Login = lazy(() => import('../view/login'))
 // 注意路由顺序
 const router = [
   {
