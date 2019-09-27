@@ -16,5 +16,6 @@ function App () {
     </Provider>
   )
 }
-export default hot(module)(App)
+console.log('process.env.REACT_APP_IMPORT', process.env.REACT_APP_IMPORT)
+export default process.env.REACT_APP_IMPORT === 'development' ? hot(module)(App) : App
 
