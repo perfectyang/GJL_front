@@ -1,17 +1,23 @@
 import React, { Component } from 'react'
 import {withRouter} from 'react-router-dom'
-import { Layout, Menu, Icon, Button, Avatar } from 'antd'
+import { Layout, Menu, Icon, Button } from 'antd'
 import styled from 'styled-components'
 import menuConfig from './menu'
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import {logout} from 'Store/actions/user'
+import apiAction from '@/api/action'
 const { Sider } = Layout
 const { SubMenu } = Menu
 const mapDispatchToProps = dispatch => ({
   logout: bindActionCreators(logout, dispatch)
 })
-@connect(null, mapDispatchToProps)
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+@connect(mapStateToProps, mapDispatchToProps)
 class LayoutComponent extends Component {
   state = {
     collapsed: false,
@@ -33,9 +39,12 @@ class LayoutComponent extends Component {
   }
 
   logout = () => {
-    let res = this.props.logout()
-    console.log('aaaa', res)
-    this.props.history.push({pathname: '/'})
+    apiAction.logout({
+      token_id: this.props.user.userInfo.token_id
+    }).then(rs => {
+      rs && this.props.logout()
+      rs && this.props.history.push({pathname: '/'})
+    })
   }
 
   genrateSubMenu (config) {
@@ -100,8 +109,8 @@ class LayoutComponent extends Component {
               onClick={this.toggle}
             />
             <LoginInfo>
-              <Avatar size={44} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-              <Button onClick={this.logout}>退出</Button>
+              <span>{this.props.user.userInfo.admin_name}</span>
+              <Button type="link" onClick={this.logout}>退出</Button>
             </LoginInfo>
           </WrapHeader>
           <MainContent>
