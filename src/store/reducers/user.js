@@ -4,28 +4,24 @@ const initState = {
   isLoading: 0
 }
 
-export default (state = initState, {type, ...args}) => {
-  console.log('args', args)
-  switch(type) {
-    case actionTypes.START_LOGIN:
-      return {
-        ...state,
-        userInfo: args.userInfo,
-        isLoading: 1
-      }
-    case actionTypes.LOGIN_FAILED:
-      return {
-       ...state,
-       userInfo: {},
-       isLoading: 0
-      }
-    case actionTypes.UPDATEDUSERINFO:
-      console.log('arg--------s', args)
-      return {
-       ...state,
-       userInfo: args.userInfo
-      }
-    default:
-      return state
+const ACTION_HANDLERS = {
+  [actionTypes.START_LOGIN]: (state, action) => {
+    return {
+      ...state,
+      userInfo: action.userInfo,
+      isLoading: 1
     }
+  },
+  [actionTypes.LOGIN_FAILED]: (state, action) => {
+    return {
+      ...state,
+      userInfo: {},
+      isLoading: 0
+    }
+  }
+}
+
+export default (state = initState, action) => {
+  const handler = ACTION_HANDLERS[action.type]
+  return handler ? handler(state, action) : state
 }
