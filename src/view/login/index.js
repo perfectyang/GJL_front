@@ -11,14 +11,14 @@ const mapDispatchToProps = dispatch => ({
 })
 @connect(null, mapDispatchToProps)
 class Login extends Component {
-  loginFn = ({admin_name, password}) => {
+  loginFn = ({user_name, pwd}) => {
     apiAction.login({
-      admin_name,
-      password: md5(`${admin_name}${md5(password)}`)
+      user_name: user_name,
+      pwd: md5(pwd)
     }).then(rs => {
       if (rs) {
         console.log('rs', rs)
-        this.props.loginFn(rs.data)
+        this.props.loginFn(rs.data[0])
         this.props.history.push('/home')
       }
     })
@@ -41,7 +41,7 @@ class Login extends Component {
           <FormTitle>管理员登录</FormTitle>
           <Form onSubmit={this.handleSubmit}>
             <Form.Item>
-              {getFieldDecorator('admin_name', {
+              {getFieldDecorator('user_name', {
                 rules: [{ required: true, message: '账号' }],
               })(
                 <Input
@@ -51,7 +51,7 @@ class Login extends Component {
               )}
             </Form.Item>
             <Form.Item>
-              {getFieldDecorator('password', {
+              {getFieldDecorator('pwd', {
                 rules: [{ required: true, message: '密码!' }],
               })(
                 <Input

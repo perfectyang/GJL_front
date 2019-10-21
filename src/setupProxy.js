@@ -4,7 +4,8 @@ module.exports = (app) => {
   app.use(
     '/index.php',
     proxy({
-       target: 'http://dev_www.qdtech.ai/', changeOrigin: true
+       target: 'http://www.web2.com/',
+       changeOrigin: true
     })
   )
 }

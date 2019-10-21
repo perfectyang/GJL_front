@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 export default class BeforeEnterRouter extends Component {
     render () {
       const { pathname, targetRouterConfig } = this.props
-      const isLogin = localStorage.getItem('token_id')
+      const isLogin = localStorage.getItem('userInfo')
       const {auth = true, redirect, routes} = targetRouterConfig
       if (targetRouterConfig.component && !auth && !isLogin) {
         return <targetRouterConfig.component {...this.props} routes={routes} />

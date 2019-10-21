@@ -23,7 +23,7 @@ export default [
       },
       {
         name: '设置中心',
-        url: '/users/center'
+        url: '/users/list'
       }
     ]
   }

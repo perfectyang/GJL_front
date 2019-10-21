@@ -3,6 +3,7 @@ const Home = lazy(() => import('../view/home'))
 const Article = lazy(() => import('../view/home/article'))
 const Users = lazy(() => import('../view/users'))
 const Setting = lazy(() => import('../view/users/setting'))
+const List = lazy(() => import('../view/users/list'))
 const Modify = lazy(() => import('../view/users/modify'))
 const NotFound = lazy(() => import('../view/404'))
 const Login = lazy(() => import('../view/login'))
@@ -16,7 +17,12 @@ const router = [
   {
     path: '/users',
     component: Users,
+    redirect: '/users/list',
     routes: [
+      {
+        path: '/users/list',
+        component: List,
+      },
       {
         path: '/users/setting',
         component: Setting,
